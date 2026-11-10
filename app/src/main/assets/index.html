@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Tichess</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="brand"><img id="brandImg" src="pieces/set1/wK.svg" alt=""><span>Tichess</span></div>
+</header>
+
+<div class="opts">
+  <label>المحرك <select id="engineSel"></select></label>
+  <label>القطع <select id="pieceSel"></select></label>
+  <button id="sndBtn" class="snd" title="الصوت">🔊</button>
+</div>
+
+<nav class="tabs">
+  <button data-tab="play" class="on">♟ العب ضد المحرك</button>
+  <button data-tab="analyze">🔍 تحليل مباراة</button>
+</nav>
+
+<div id="banner" hidden></div>
+
+<main>
+  <!-- ================= اللعب ================= -->
+  <section id="tab-play">
+    <div class="bots" id="pBots"></div>
+    <div class="status" id="pStatus">جاري تشغيل المحرك…</div>
+    <div class="boardrow"><div class="board-wrap"><div id="pBoard" class="board"></div><svg class="arrows" id="pArrows" viewBox="0 0 8 8"></svg></div></div>
+    <div class="moves-strip" id="pMoves"></div>
+    <div class="btns">
+      <button id="pNew" class="primary">لعبة جديدة</button>
+      <button id="pUndo">↩ تراجع</button>
+      <button id="pFlip">⇅ قلب</button>
+      <button id="pResign">🏳 استسلام</button>
+    </div>
+    <div class="btns">
+      <button id="pAnalyze">🔍 حلّل هذه المباراة</button>
+      <button id="pCopy">📋 نسخ PGN</button>
+    </div>
+    <div class="settings">
+      <label>ألعب بـ
+        <select id="pSide"><option value="w">الأبيض</option><option value="b">الأسود</option><option value="r">عشوائي</option></select>
+      </label>
+      <label id="pTimeBox" hidden>وقت التفكير
+        <select id="pTime">
+          <option value="300">سريع (0.3 ث)</option>
+          <option value="1000" selected>عادي (1 ث)</option>
+          <option value="3000">عميق (3 ث)</option>
+          <option value="8000">أقوى (8 ث)</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <!-- ================= التحليل ================= -->
+  <section id="tab-analyze" hidden>
+    <div id="aInput">
+      <textarea id="aText" rows="5" placeholder="ألصق هنا مباراة بصيغة PGN (من Lichess أو غيره) أو قائمة نقلات مثل: 1. e4 e5 2. Nf3 Nc6"></textarea>
+      <div class="btns">
+        <button id="aGo" class="primary">▶ حلّل</button>
+        <button id="aClear">مسح</button>
+        <label class="inl">لكل نقلة
+          <select id="aTime">
+            <option value="150">سريع (0.15 ث)</option>
+            <option value="400" selected>متوسط (0.4 ث)</option>
+            <option value="1000">عميق (1 ث)</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div id="aProgress" hidden>
+      <div class="pbar"><div id="aPbar"></div></div>
+      <div class="ptext"><span id="aPtext"></span> <button id="aCancel">إلغاء</button></div>
+    </div>
+
+    <div id="aResult" hidden>
+      <div class="boardrow">
+        <div class="evalbar" id="aEvalBar"><div id="aEvalW"></div><span id="aEvalTxt">0.00</span></div>
+        <div class="board-wrap"><div id="aBoard" class="board"></div><svg class="arrows" id="aArrows" viewBox="0 0 8 8"></svg></div>
+      </div>
+      <div class="navbtns">
+        <button id="aFirst">⏮</button><button id="aPrev">◀</button><button id="aNext">▶</button><button id="aLast">⏭</button><button id="aFlip">⇅</button>
+      </div>
+      <div class="infocard" id="aInfo"></div>
+      <div class="movelist" id="aMoves"></div>
+      <table class="summary" id="aSummary"></table>
+      <div class="btns"><button id="aNewAnalysis">تحليل مباراة أخرى</button></div>
+    </div>
+  </section>
+</main>
+
+<div id="review" class="modal" hidden><div class="box">
+  <div id="reviewTxt" style="font-weight:700;font-size:17px;margin-bottom:8px"></div>
+  <div>هل تريد مراجعة المباراة؟</div>
+  <div class="btns"><button id="reviewYes" class="primary">نعم، راجعها 🔍</button><button id="reviewNo">لا</button></div>
+</div></div>
+
+<div id="promo" class="modal" hidden><div class="box"><div>اختر القطعة</div><div id="promoBtns"></div></div></div>
+
+<script src="rules.js"></script>
+<script src="engine.js"></script>
+<script src="analysis.js"></script>
+<script src="bots.js"></script>
+<script src="sound.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

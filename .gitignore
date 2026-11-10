@@ -1,0 +1,8 @@
+.gradle/
+build/
+local.properties
+*.apk
+engine/stockfish/src/*.o
+engine/stockfish/src/stockfish
+engine/stockfish/src/*.nnue
+lichess_token.txt
